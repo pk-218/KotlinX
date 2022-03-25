@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="tech.kotlinx.knox.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:name="tech.kotlinx.knox.ConnectionDetailsFragment"
+        android:label="@string/connection_details_fragment_label"
+        tools:layout="@layout/fragment_connection_details">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
