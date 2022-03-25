@@ -10,8 +10,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import tech.kotlinx.knox.databinding.FragmentConnectionDetailsBinding
 import java.net.NetworkInterface
 import java.util.*
@@ -23,6 +25,7 @@ import java.util.*
 class ConnectionDetailsFragment : Fragment() {
 
     private var _binding: FragmentConnectionDetailsBinding? = null
+    private val args by navArgs<ConnectionDetailsFragmentArgs>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -39,6 +42,9 @@ class ConnectionDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val userName = args.userName
+        Toast.makeText(context, "Welcome $userName", Toast.LENGTH_SHORT).show()
 
         var userIpAddress: String? = "0.0.0.0"
         val connectivityManager: ConnectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
