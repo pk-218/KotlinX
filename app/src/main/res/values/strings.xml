@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">knox</string>
+    <string name="app_name">Knox</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="first_fragment_label">Welcome to Knox</string>
+    <string name="connection_details_fragment_label">Connection Details</string>
     <string name="next">Next</string>
     <string name="letschat">Let\'s Chat</string>
 
@@ -11,6 +11,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="your_ip_address">Your IP Address</string>
     <string name="default_ip">0.0.0.0</string>
-    <string name="enter_receiver_s_ip_address">Enter Receiver\'s IP address</string>
+    <string name="enter_receiver_ip_address">Enter Receiver\'s IP address</string>
     <string name="let_s_chat">Let\'s Chat</string>
 </resources>
