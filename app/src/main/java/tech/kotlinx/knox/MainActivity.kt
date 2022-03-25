@@ -1,20 +1,27 @@
 package tech.kotlinx.knox
 
+import android.Manifest.permission
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import tech.kotlinx.knox.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private val REQUEST_CODE = 200
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +35,12 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+        //permission calls
+        if (permissionAlreadyGranted()) {
+            Toast.makeText(this, "Permission is already granted!", Toast.LENGTH_SHORT)
+                .show()
+        }
+        requestPermission()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -51,4 +64,41 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
+
+    //permission request based on shared preferences data
+    private fun permissionAlreadyGranted(): Boolean {
+        val result = ContextCompat.checkSelfPermission(this, permission.WRITE_EXTERNAL_STORAGE)
+        return result == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(permission.WRITE_EXTERNAL_STORAGE),
+            REQUEST_CODE
+        )
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission granted successfully", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Permission is denied!", Toast.LENGTH_SHORT).show()
+                val showRationale =
+                    shouldShowRequestPermissionRationale(permission.WRITE_EXTERNAL_STORAGE)
+                if (!showRationale) {
+//                    openSettingsDialog()
+                }
+            }
+        }
+    }
 }
+
