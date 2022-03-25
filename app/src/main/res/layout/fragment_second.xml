@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SecondFragment"
+    android:background="@color/background_dark"
     >
 
     <LinearLayout
@@ -16,8 +17,8 @@
             android:layout_width="330dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/white"
             android:fontFamily="@font/roboto_slab"
-            android:paddingVertical="20dp"
             android:text="@string/your_ip_address"
             android:textAlignment="center"
             android:textSize="20sp" />
@@ -37,14 +38,16 @@
             android:id="@+id/receiver_ip_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_receiver_s_ip_address"
+            android:textColorHint="#4C4C4C"
             android:layout_marginVertical="20dp"
             android:layout_marginHorizontal="40dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+                android:layout_width="330dp"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_receiver_s_ip_address"
+                android:background="@color/white"
 
                 />
 
