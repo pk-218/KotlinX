@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import tech.kotlinx.knox.adapter.MessageAdapter
 import tech.kotlinx.knox.data.model.Datasource
@@ -18,6 +19,7 @@ import java.net.ServerSocket
 import java.net.Socket
 import java.util.Calendar
 
+@AndroidEntryPoint
 class ChatFragment : Fragment() {
 
     private val viewModel: ChatViewModel by viewModels()
@@ -43,11 +45,8 @@ class ChatFragment : Fragment() {
 
         //TODO: re-initialize receiverPort,receiverIpAddress and myUsername from safe args and local store
         Log.d("ChatFragmentArgs", args.receiverIP + ":" + args.receiverPort.toString())
-//        viewModel = (activity as MainActivity).chatViewModel
-//        viewModel.viewModelScope.launch {
-//            myUserName = viewModel.getUserName()
-//            Log.d("myUserName", myUserName.toString())
-//        }
+        myUserName = viewModel.userName.value
+        Log.d("myUserName", myUserName.toString())
         // render messages
         messages = Datasource().loadMessages()
         binding.messageView.adapter = context?.let {
