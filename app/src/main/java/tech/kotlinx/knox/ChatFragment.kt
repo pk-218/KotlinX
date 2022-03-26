@@ -32,7 +32,7 @@ class ChatFragment() : Fragment() {
     private var messages : ArrayList<Message> = arrayListOf()
     private lateinit var recyclerView : RecyclerView
     private lateinit var textView : TextView
-    private var userName : String? = ""
+    private var myUserName : String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +42,7 @@ class ChatFragment() : Fragment() {
         val view = inflater.inflate(R.layout.fragment_chat, container, false)
         messages = Datasource().loadMessages()
         recyclerView=view.findViewById(R.id.message_view)
-        //TODO: re-initialize port,ipAddress and username from safe args
+        //TODO: re-initialize receiverPort,receiverIpAddress and myUsername from safe args and local store
         //rendering of messages
         recyclerView.adapter= context?.let { MessageAdapter(it, messages) }
 
@@ -53,24 +53,24 @@ class ChatFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var oppUserName : String? = ""
+        var receiverUserName : String? = ""
         try {
             val serverSocket : ServerSocket = ServerSocket(myPort)
             serverSocket.reuseAddress = true
 
-            //send username
+            //send username to receiver
             viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.sendMessage(userName, receiverIpAddress, receiverPort)
+                viewModel.sendMessage(myUserName, receiverIpAddress, receiverPort)
             }
 
             while(!Thread.interrupted()) {
                 val connectSocket : Socket = serverSocket.accept()
                 //get username
                 viewLifecycleOwner.lifecycleScope.launch {
-                    if(oppUserName=="") {
-                        oppUserName = viewModel.receiveMessage(connectSocket)
+                    if(receiverUserName=="") {
+                        receiverUserName = viewModel.receiveMessage(connectSocket)
                         //text view set text
-                        textView.text = oppUserName
+                        textView.text = receiverUserName
                     }
                     else {
                         val text = viewModel.receiveMessage(connectSocket)
