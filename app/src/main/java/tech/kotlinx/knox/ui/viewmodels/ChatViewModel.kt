@@ -2,6 +2,8 @@ package tech.kotlinx.knox.ui.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.PrintWriter
@@ -10,7 +12,8 @@ import java.util.*
 
 class ChatViewModel : ViewModel() {
     val TAG = "Chat View Model"
-    private suspend fun sendMessage(msg : String?, receiverIpAddress : String?, receiverPort : Int) {
+
+    suspend fun sendMessage(msg : String?, receiverIpAddress : String?, receiverPort : Int) {
         try {
             val clientSocket : Socket = Socket(receiverIpAddress, receiverPort)
             val outToServer = clientSocket.getOutputStream()
@@ -24,7 +27,7 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-    private suspend fun receiveMessage(vararg sockets: Socket): String? {
+    suspend fun receiveMessage(vararg sockets: Socket): String? {
         var text : String? = null
         try {
             val input = BufferedReader(InputStreamReader(sockets[0].getInputStream()))
