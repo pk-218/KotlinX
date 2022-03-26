@@ -43,7 +43,7 @@ class ChatFragment() : Fragment() {
         messages = Datasource().loadMessages()
         recyclerView=view.findViewById(R.id.message_view)
         //TODO: re-initialize receiverPort,receiverIpAddress and myUsername from safe args and local store
-        //rendering of messages
+        //render messages
         recyclerView.adapter= context?.let { MessageAdapter(it, messages) }
 
         return view
