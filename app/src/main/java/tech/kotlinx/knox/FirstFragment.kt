@@ -38,12 +38,9 @@ class FirstFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val userName = binding.userName.text.toString()
-//        viewModel = (activity as MainActivity).firstViewModel
-//        viewModel.viewModelScope.launch {
-//            viewModel.addUserName(userName)
-//        }
         binding.buttonFirst.setOnClickListener {
             val userName = binding.userName.text.toString()
+            viewModel.saveUserName(userName)
             val bundle = bundleOf("userName" to userName)
             findNavController().navigate(R.id.action_FirstFragment_to_ConnectionDetailsFragment, bundle)
         }

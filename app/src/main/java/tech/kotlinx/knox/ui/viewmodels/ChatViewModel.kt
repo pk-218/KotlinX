@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tech.kotlinx.knox.data.model.Message
+import kotlinx.coroutines.launch
 import tech.kotlinx.knox.data.repository.RepositoryImpl
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -19,6 +20,7 @@ import java.net.ServerSocket
 import java.net.Socket
 import java.util.*
 import kotlin.collections.ArrayList
+import javax.inject.Inject
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(private val repository: RepositoryImpl): ViewModel() {
@@ -30,9 +32,7 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl):
     val messages : MutableLiveData<MutableList<Message>>
     get()= _messages
 
-//    suspend fun getUserName(): String? {
-//        return repository.getUserName().first()
-//    }
+    var userName: MutableLiveData<String> = MutableLiveData()
 
     fun sendMessage(msg : String?, receiverIpAddress : String?, receiverPort : Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -65,6 +65,37 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl):
                 e.printStackTrace()
             }
             text
+
+    fun getUserName() {
+        viewModelScope.launch {
+            repository.getUserName().collect {
+                userName.postValue(it)
+            }
+        }
+    }
+
+    fun sendMessage(msg : String?, receiverIpAddress : String?, receiverPort : Int) {
+        try {
+            val clientSocket : Socket = Socket(receiverIpAddress, receiverPort)
+            val outToServer = clientSocket.getOutputStream()
+            val output = PrintWriter(outToServer)
+            output.println(msg)
+            output.flush()
+            clientSocket.close()
+
+        } catch(e : Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun receiveMessage(vararg sockets: Socket): String? {
+        var text : String? = null
+        try {
+            val input = BufferedReader(InputStreamReader(sockets[0].getInputStream()))
+            text = input.readLine()
+            Log.i(TAG, "Received => $text")
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
         }
         return text
     }
