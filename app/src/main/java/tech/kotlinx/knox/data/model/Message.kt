@@ -1,8 +1,10 @@
 package tech.kotlinx.knox.data.model
-
+import androidx.room.Entity
 import java.util.*
 
+@Entity(tableName = "message_table")
 data class Message(
+    private var ip : String,
     private var message : String?,
     private var type : Int?,
     private var sentAt : Date?
