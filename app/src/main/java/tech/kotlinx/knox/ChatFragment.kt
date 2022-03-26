@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.launch
@@ -24,7 +25,6 @@ class ChatFragment : Fragment() {
 
     private val viewModel: ChatViewModel by viewModels()
     private var myPort = 5000
-    private var messages: ArrayList<Message> = arrayListOf()
     private var myUserName: String? = ""
     private val args by navArgs<ChatFragmentArgs>()
 
@@ -45,34 +45,33 @@ class ChatFragment : Fragment() {
 
         //get ip and address from args
         Log.d("ChatFragmentArgs", args.receiverIP + ":" + args.receiverPort.toString())
-        messages = Datasource().loadMessages()
         binding.messageView.adapter = context?.let {
-            MessageAdapter(it, messages)
+            MessageAdapter(it, viewModel.messages.value!!)
         }
+
+        viewModel.messages.observe(viewLifecycleOwner) { newMessages ->
+            with(binding) {
+                messageView.adapter?.notifyItemInserted(newMessages.size - 1)
+                messageView.scrollToPosition(newMessages.size - 1)
+                binding.edittextChatbox.text.clear()
+            }
+        }
+
         //start server
         viewModel.startServer(myPort)
         binding.buttonChatboxSend.setOnClickListener {
             if (binding.edittextChatbox.text.isNotBlank()) {
-                val msg =
-                    Message(binding.edittextChatbox.text.toString(), 0, Calendar.getInstance().time)
-                messages.add(msg)
-                with(binding) {
-                    messageView.adapter?.notifyItemInserted(messages.size - 1)
-                    messageView.scrollToPosition(messages.size - 1)
-                    binding.edittextChatbox.text.clear()
-                }
-                //send message
-                viewModel.sendMessage(msg.getMessage(), args.receiverIP, args.receiverPort)
+                viewModel.sendMessage(binding.edittextChatbox.text.toString(), args.receiverIP, args.receiverPort)
             }
         }
-        var receiverUserName: String? = ""
-        //get live updates from live data and render on the UI
-        val msg: Message = Message(viewModel.message.value, 1, Calendar.getInstance().time)
-        messages.add(msg)
-        with(binding) {
-            messageView.adapter?.notifyItemInserted(messages.size - 1)
-            messageView.scrollToPosition(messages.size - 1)
-        }
+//        var receiverUserName: String? = ""
+//        //get live updates from live data and render on the UI
+//        val msg: Message = Message(viewModel.message.value, 1, Calendar.getInstance().time)
+//        messages.add(msg)
+//        with(binding) {
+//            messageView.adapter?.notifyItemInserted(messages.size - 1)
+//            messageView.scrollToPosition(messages.size - 1)
+//        }
     }
 
 }

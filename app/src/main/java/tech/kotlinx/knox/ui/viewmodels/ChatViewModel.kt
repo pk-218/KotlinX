@@ -17,9 +17,16 @@ import java.io.PrintWriter
 import java.net.ServerSocket
 import java.net.Socket
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ChatViewModel() : ViewModel() {
     val TAG = "Chat View Model"
+    private var _messages = MutableLiveData<MutableList<Message>>(
+        arrayListOf()
+    )
+
+    val messages : MutableLiveData<MutableList<Message>>
+    get()= _messages
 
 //    suspend fun getUserName(): String? {
 //        return repository.getUserName().first()
@@ -32,6 +39,7 @@ class ChatViewModel() : ViewModel() {
                 val outToServer = clientSocket.getOutputStream()
                 val output = PrintWriter(outToServer)
                 output.println(msg)
+                _messages.value?.add(Message(receiverIpAddress!!, msg, 0, Calendar.getInstance().time))
                 Log.v(TAG, "Sent Message")
                 output.flush()
                 clientSocket.close()
@@ -42,13 +50,14 @@ class ChatViewModel() : ViewModel() {
         }
     }
 
-
+    //TODO:GET SENDER's IP
     private suspend fun receiveMessage(vararg sockets: Socket): String? {
         val job = viewModelScope.async(Dispatchers.IO) {
             var text: String? = null
             try {
                 val input = BufferedReader(InputStreamReader(sockets[0].getInputStream()))
                 text = input.readLine()
+                _messages.value?.add(Message("", text, 1, Calendar.getInstance().time))
                 Log.i(TAG, "Received => $text")
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
@@ -73,8 +82,6 @@ class ChatViewModel() : ViewModel() {
 //
 //                    message.value = text
 //                }
-                    val msg: Message = Message(viewModel.message.value, 1, Calendar.getInstance().time)
-                    messages.add(msg)
                     //loop end
                     Log.d(TAG, text!!)
                 }

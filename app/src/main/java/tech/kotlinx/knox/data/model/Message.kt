@@ -3,6 +3,7 @@ package tech.kotlinx.knox.data.model
 import java.util.*
 
 data class Message(
+    private var ip : String,
     private var message : String?,
     private var type : Int?,
     private var sentAt : Date?
