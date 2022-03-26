@@ -28,20 +28,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val REQUEST_CODE = 200
 
-    lateinit var chatViewModel: ChatViewModel
-    lateinit var firstViewModel: FirstViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        runOnUiThread {
-            val repository = RepositoryImpl(dataStore = UserPreferences(this))
-            firstViewModel = FirstViewModel(repository)
-            chatViewModel = ChatViewModel(repository)
-        }
 
         setSupportActionBar(binding.toolbar)
 

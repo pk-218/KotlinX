@@ -18,7 +18,7 @@ import tech.kotlinx.knox.ui.viewmodels.FirstViewModel
  */
 class FirstFragment() : Fragment() {
 
-    private lateinit var viewModel: FirstViewModel
+    private val viewModel: FirstViewModel by viewModels()
     private var _binding: FragmentFirstBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
