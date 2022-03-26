@@ -1,18 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/sent_message_box"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bodybody"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginRight="10dp"
-        android:textColor="#49EB37"
-        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_rectangle_orange"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="hello" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/send_message_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:maxWidth="240dp"
+            android:padding="5dp"
+            android:paddingStart="10dp"
+            android:text="hello, hello!"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintRight_toLeftOf="@id/text_message_time"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:paddingEnd="10dp"
+            android:text="11:40"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sent_image" />
+
+        <ImageView
+            android:id="@+id/sent_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/send_message_box" />
+
+        <ImageView
+            android:id="@+id/sent_play_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingEnd="15dp"
+            android:src="@drawable/ic_baseline_play_circle_filled_24"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/send_message_box" />
+
+        <ImageView
+            android:id="@+id/sent_pause_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingEnd="15dp"
+            android:src="@drawable/ic_baseline_pause_circle_outline_24"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/send_message_box" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
