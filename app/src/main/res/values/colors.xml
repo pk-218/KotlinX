@@ -18,5 +18,7 @@
     <color name="blue">#1273D5</color>
     <color name="blue_50opacity">#801273D5</color>
 
+    <color name="green_sent">#DCF8C6</color>
+
 
 </resources>

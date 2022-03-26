@@ -5,17 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".ChatFragment"
+    android:background="@drawable/background"
     >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#AEAEAE"
+        android:background="#F1F1F1"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,18 +60,35 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+<!--            <ImageView-->
+<!--                android:layout_width="16dp"-->
+<!--                android:layout_height="16dp"-->
+<!--                android:background="@drawable/ic_baseline_circle_24"-->
+<!--                android:backgroundTint="#007302"-->
+<!--                android:layout_marginRight="10dp"-->
 
-            <TextView
+<!--                />-->
 
-                android:id="@+id/status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=" Online"
-                android:fontFamily="@font/montaga"
-                android:textColor="#007302"
-                android:visibility="visible"
-                 />
+
+
+
+
+                <TextView
+
+                    android:id="@+id/status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Online"
+                    android:fontFamily="@font/montaga"
+                    android:textColor="#007302"
+                    android:visibility="visible"
+                    android:gravity="center_vertical"
+                    />
+
+
+
+
         </LinearLayout>
 
         </LinearLayout>
@@ -97,11 +114,11 @@
         android:id="@+id/message_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toTopOf="@+id/layout_chatbox"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:background="@drawable/background"
         app:stackFromEnd="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
