@@ -2,16 +2,19 @@ package tech.kotlinx.knox.ui.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.first
+import tech.kotlinx.knox.data.repository.RepositoryImpl
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.net.Socket
-import java.util.*
 
-class ChatViewModel : ViewModel() {
+class ChatViewModel(private val repository: RepositoryImpl) : ViewModel() {
     val TAG = "Chat View Model"
+
+//    suspend fun getUserName(): String? {
+//        return repository.getUserName().first()
+//    }
 
     suspend fun sendMessage(msg : String?, receiverIpAddress : String?, receiverPort : Int) {
         try {
