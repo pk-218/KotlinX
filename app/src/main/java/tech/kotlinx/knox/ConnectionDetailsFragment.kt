@@ -22,6 +22,9 @@ import java.util.*
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
+
+//data from here does to ChatFragment
+
 class ConnectionDetailsFragment : Fragment() {
 
     private var _binding: FragmentConnectionDetailsBinding? = null

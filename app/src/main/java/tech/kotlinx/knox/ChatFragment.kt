@@ -26,11 +26,13 @@ import kotlin.coroutines.CoroutineContext
 class ChatFragment() : Fragment() {
 
     private val viewModel: ChatViewModel by viewModels()
-    private var port = 5000
-    private var ipAddress = "0.0.0.0"
+    private var myPort = 5000
+    private var receiverPort = 5000
+    private var receiverIpAddress = "0.0.0.0"
     private var messages : ArrayList<Message> = arrayListOf()
     private lateinit var recyclerView : RecyclerView
     private lateinit var textView : TextView
+    private var userName : String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +42,7 @@ class ChatFragment() : Fragment() {
         val view = inflater.inflate(R.layout.fragment_chat, container, false)
         messages = Datasource().loadMessages()
         recyclerView=view.findViewById(R.id.message_view)
-        //TODO: re-initialize port and ipAddress from safe args
+        //TODO: re-initialize port,ipAddress and username from safe args
         //rendering of messages
         recyclerView.adapter= context?.let { MessageAdapter(it, messages) }
 
@@ -53,15 +55,17 @@ class ChatFragment() : Fragment() {
 
         var oppUserName : String? = ""
         try {
-            val serverSocket : ServerSocket = ServerSocket(port)
+            val serverSocket : ServerSocket = ServerSocket(myPort)
             serverSocket.reuseAddress = true
 
-            //TODO: send username
+            //send username
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.sendMessage(userName, receiverIpAddress, receiverPort)
+            }
 
             while(!Thread.interrupted()) {
                 val connectSocket : Socket = serverSocket.accept()
                 //get username
-
                 viewLifecycleOwner.lifecycleScope.launch {
                     if(oppUserName=="") {
                         oppUserName = viewModel.receiveMessage(connectSocket)
