@@ -37,10 +37,13 @@ class ChatFragment() : Fragment() {
     private lateinit var textView : TextView
     private var myUserName : String? = ""
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
 
         val view = inflater.inflate(R.layout.fragment_chat, container, false)
         val senderTextBox = view.findViewById<EditText>(R.id.edittext_chatbox)
@@ -105,5 +108,7 @@ class ChatFragment() : Fragment() {
             e.printStackTrace()
         }
     }
+
+
 
 }
