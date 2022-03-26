@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import tech.kotlinx.knox.databinding.FragmentFirstBinding
 import tech.kotlinx.knox.ui.viewmodels.FirstViewModel
@@ -16,6 +17,7 @@ import tech.kotlinx.knox.ui.viewmodels.FirstViewModel
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
+@AndroidEntryPoint
 class FirstFragment() : Fragment() {
 
     private val viewModel: FirstViewModel by viewModels()
@@ -41,6 +43,7 @@ class FirstFragment() : Fragment() {
 //            viewModel.addUserName(userName)
 //        }
         binding.buttonFirst.setOnClickListener {
+            val userName = binding.userName.text.toString()
             val bundle = bundleOf("userName" to userName)
             findNavController().navigate(R.id.action_FirstFragment_to_ConnectionDetailsFragment, bundle)
         }

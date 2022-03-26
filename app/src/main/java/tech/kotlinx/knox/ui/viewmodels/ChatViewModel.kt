@@ -5,8 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tech.kotlinx.knox.data.model.Message
@@ -19,7 +20,8 @@ import java.net.Socket
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ChatViewModel() : ViewModel() {
+@HiltViewModel
+class ChatViewModel @Inject constructor(private val repository: RepositoryImpl): ViewModel() {
     val TAG = "Chat View Model"
     private var _messages = MutableLiveData<MutableList<Message>>(
         arrayListOf()
@@ -64,7 +66,7 @@ class ChatViewModel() : ViewModel() {
             }
             text
         }
-        return job.await()
+        return text
     }
 
     fun startServer(port : Int) {
