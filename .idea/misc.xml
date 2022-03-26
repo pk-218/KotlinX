@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/azeez/AndroidStudioProjects/KotlinX/app/src/main/res/layout/activity_main.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/azeez/AndroidStudioProjects/KotlinX/app/src/main/res/layout/content_main.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/azeez/AndroidStudioProjects/KotlinX/app/src/main/res/layout/fragment_chat.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/azeez/AndroidStudioProjects/KotlinX/app/src/main/res/layout/fragment_connection_details.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/azeez/AndroidStudioProjects/KotlinX/app/src/main/res/layout/fragment_first.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/azeez/AndroidStudioProjects/KotlinX/app/src/main/res/layout/message_box.xml" value="0.16304347826086957" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/drawable/round_border.xml" value="0.2435" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/content_main.xml" value="0.25416666666666665" />
