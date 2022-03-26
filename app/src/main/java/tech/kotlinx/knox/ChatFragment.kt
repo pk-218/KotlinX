@@ -1,5 +1,6 @@
 package tech.kotlinx.knox
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -46,6 +47,7 @@ class ChatFragment() : Fragment() {
         return view
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -70,9 +72,8 @@ class ChatFragment() : Fragment() {
                         val text = viewModel.receiveMessage(connectSocket)
                         val msg : Message = Message(text, 1, Calendar.getInstance().time)
                         messages.add(msg)
-                        recyclerView.adapter= context?.let { MessageAdapter(it, messages) }
+                        recyclerView.adapter?.notifyDataSetChanged()
                     }
-                    //first text will be the username
                 }
             }
             serverSocket.close()
