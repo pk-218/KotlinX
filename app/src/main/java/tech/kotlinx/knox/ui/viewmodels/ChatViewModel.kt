@@ -35,4 +35,6 @@ class ChatViewModel : ViewModel() {
         }
         return text
     }
+
+
 }

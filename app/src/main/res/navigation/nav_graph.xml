@@ -20,7 +20,10 @@
         android:name="tech.kotlinx.knox.ConnectionDetailsFragment"
         android:label="@string/connection_details_fragment_label"
         tools:layout="@layout/fragment_connection_details">
-
+        <argument
+            android:name="userName"
+            app:argType="string"
+            android:defaultValue="User" />
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
