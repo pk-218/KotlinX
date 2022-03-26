@@ -24,12 +24,12 @@
             app:argType="string"
             android:defaultValue="User" />
         <action
-            android:id="@+id/action_SecondFragment_to_chat_box"
-            app:destination="@id/chat_box" />
+            android:id="@+id/action_SecondFragment_to_chatFragment"
+            app:destination="@id/chatFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/chat_box"
-        android:name="tech.kotlinx.knox.Chat_box"
-        android:label="fragment_chat_box"
-        tools:layout="@layout/fragment_chat_box" />
+        android:id="@+id/chatFragment2"
+        android:name="tech.kotlinx.knox.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" />
 </navigation>
