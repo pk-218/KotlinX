@@ -45,7 +45,6 @@ class ChatFragment() : Fragment() {
         //TODO: re-initialize receiverPort,receiverIpAddress and myUsername from safe args and local store
         //render messages
         recyclerView.adapter= context?.let { MessageAdapter(it, messages) }
-
         return view
     }
 

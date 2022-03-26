@@ -14,6 +14,16 @@
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/content_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/fragment_first.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/fragment_second.xml" value="0.25416666666666665" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.271286231884058" />
+        <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_connection_details.xml" value="0.31431159420289856" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.271286231884058" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.271286231884058" />
+        <entry key="app/src/main/res/layout/message_box.xml" value="0.271286231884058" />
+        <entry key="app/src/main/res/layout/received_message_box.xml" value="0.31431159420289856" />
+        <entry key="app/src/main/res/layout/receiver_message_box.xml" value="0.271286231884058" />
+        <entry key="app/src/main/res/layout/sender_message_box.xml" value="0.271286231884058" />
+        <entry key="app/src/main/res/layout/sent_message_box.xml" value="0.31431159420289856" />
       </map>
     </option>
   </component>

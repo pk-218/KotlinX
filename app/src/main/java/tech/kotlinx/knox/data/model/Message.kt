@@ -11,6 +11,10 @@ data class Message(
         return message
     }
 
+    fun isSent() : Boolean {
+        return type == 0
+    }
+
     fun getType() : Int? {
         return type
     }
