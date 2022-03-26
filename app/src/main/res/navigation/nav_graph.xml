@@ -10,7 +10,6 @@
         android:name="tech.kotlinx.knox.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
-
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
@@ -25,7 +24,12 @@
             app:argType="string"
             android:defaultValue="User" />
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_SecondFragment_to_chat_box"
+            app:destination="@id/chat_box" />
     </fragment>
+    <fragment
+        android:id="@+id/chat_box"
+        android:name="tech.kotlinx.knox.Chat_box"
+        android:label="fragment_chat_box"
+        tools:layout="@layout/fragment_chat_box" />
 </navigation>
