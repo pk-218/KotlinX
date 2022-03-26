@@ -20,7 +20,6 @@ class ChatFragment : Fragment() {
         val messages = Datasource().loadMessages()
         val recyclerView=view.findViewById<RecyclerView>(R.id.message_view)
         recyclerView.adapter= context?.let { MessageAdapter(it, messages) }
-
         return view
     }
 }
