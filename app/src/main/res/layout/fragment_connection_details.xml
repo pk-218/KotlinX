@@ -38,6 +38,7 @@
             android:hint="@string/enter_receiver_ip_address">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/receiver_ip_address_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

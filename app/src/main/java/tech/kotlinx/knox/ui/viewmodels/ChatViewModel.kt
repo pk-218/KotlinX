@@ -1,19 +1,34 @@
 package tech.kotlinx.knox.ui.viewmodels
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import tech.kotlinx.knox.data.repository.RepositoryImpl
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.net.Socket
-import java.util.*
+import javax.inject.Inject
 
-class ChatViewModel : ViewModel() {
+@HiltViewModel
+class ChatViewModel @Inject constructor(private val repository: RepositoryImpl): ViewModel() {
     val TAG = "Chat View Model"
 
-    suspend fun sendMessage(msg : String?, receiverIpAddress : String?, receiverPort : Int) {
+    var userName: MutableLiveData<String> = MutableLiveData()
+
+    fun getUserName() {
+        viewModelScope.launch {
+            repository.getUserName().collect {
+                userName.postValue(it)
+            }
+        }
+    }
+
+    fun sendMessage(msg : String?, receiverIpAddress : String?, receiverPort : Int) {
         try {
             val clientSocket : Socket = Socket(receiverIpAddress, receiverPort)
             val outToServer = clientSocket.getOutputStream()
@@ -27,7 +42,7 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-    suspend fun receiveMessage(vararg sockets: Socket): String? {
+    fun receiveMessage(vararg sockets: Socket): String? {
         var text : String? = null
         try {
             val input = BufferedReader(InputStreamReader(sockets[0].getInputStream()))
