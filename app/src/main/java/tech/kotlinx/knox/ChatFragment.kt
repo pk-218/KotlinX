@@ -65,9 +65,8 @@ class ChatFragment : Fragment() {
                 viewModel.sendMessage(msg.getMessage(), args.receiverIP, args.receiverPort)
             }
         }
-        var receiverUserName: String? = ""
         //get live updates from live data and render on the UI
-        val msg: Message = Message(viewModel.message.value, 1, Calendar.getInstance().time)
+        val msg: Message = Message(viewModel.result.value, 1, Calendar.getInstance().time)
         messages.add(msg)
         with(binding) {
             messageView.adapter?.notifyItemInserted(messages.size - 1)
