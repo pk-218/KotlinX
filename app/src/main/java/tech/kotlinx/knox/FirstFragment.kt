@@ -39,6 +39,7 @@ class FirstFragment() : Fragment() {
 
         val userName = binding.userName.text.toString()
         binding.buttonFirst.setOnClickListener {
+            val userName = binding.userName.text.toString()
             viewModel.saveUserName(userName)
             val bundle = bundleOf("userName" to userName)
             findNavController().navigate(R.id.action_FirstFragment_to_ConnectionDetailsFragment, bundle)

@@ -47,6 +47,7 @@ class ConnectionDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("FragmentArgs", args.userName)
         Toast.makeText(context, "Welcome ${args.userName}", Toast.LENGTH_SHORT).show()
 
         var userIpAddress: String? = "0.0.0.0"
