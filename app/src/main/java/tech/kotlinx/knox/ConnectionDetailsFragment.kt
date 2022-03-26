@@ -56,6 +56,7 @@ class ConnectionDetailsFragment : Fragment() {
         binding.senderIpAddressField.setText(userIpAddress)
 
         binding.enterChatButton.setOnClickListener {
+
             findNavController().navigate(R.id.action_SecondFragment_to_chatFragment)
         }
     }
