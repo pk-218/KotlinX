@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -46,8 +47,7 @@ class ConnectionDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userName = args.userName
-        Toast.makeText(context, "Welcome $userName", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Welcome ${args.userName}", Toast.LENGTH_SHORT).show()
 
         var userIpAddress: String? = "0.0.0.0"
         val connectivityManager: ConnectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -59,7 +59,9 @@ class ConnectionDetailsFragment : Fragment() {
         binding.senderIpAddressField.setText(userIpAddress)
 
         binding.enterChatButton.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_chatFragment)
+            val bundle = bundleOf("receiverIP" to binding.receiverIpAddressText.text.toString(),
+                "receiverPort" to 5000)
+            findNavController().navigate(R.id.action_ConnectionDetailsFragment_to_ChatFragment, bundle)
         }
     }
 

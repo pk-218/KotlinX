@@ -6,16 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.launch
 import tech.kotlinx.knox.databinding.FragmentFirstBinding
+import tech.kotlinx.knox.ui.viewmodels.FirstViewModel
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class FirstFragment() : Fragment() {
 
+    private lateinit var viewModel: FirstViewModel
     private var _binding: FragmentFirstBinding? = null
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -24,7 +28,6 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -32,9 +35,14 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val userName = binding.userName.text.toString()
+//        viewModel = (activity as MainActivity).firstViewModel
+//        viewModel.viewModelScope.launch {
+//            viewModel.addUserName(userName)
+//        }
         binding.buttonFirst.setOnClickListener {
-            val bundle = bundleOf("userName" to binding.userName.text.toString())
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
+            val bundle = bundleOf("userName" to userName)
+            findNavController().navigate(R.id.action_FirstFragment_to_ConnectionDetailsFragment, bundle)
         }
     }
 

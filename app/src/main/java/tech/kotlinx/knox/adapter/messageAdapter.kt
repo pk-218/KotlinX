@@ -65,7 +65,7 @@ class MessageAdapter(
     override fun getItemCount() = messageList.size
 
     private class SentMessageHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView = view.findViewById(R.id.sent_message_box)
+        val textView: TextView = view.findViewById(R.id.send_message_box)
         fun bind(message : Message)
         {
             val newMessage = message.getMessage()
