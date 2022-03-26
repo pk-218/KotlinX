@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -40,11 +43,27 @@ class ChatFragment() : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_chat, container, false)
+        val senderTextBox = view.findViewById<EditText>(R.id.edittext_chatbox)
         messages = Datasource().loadMessages()
         recyclerView=view.findViewById(R.id.message_view)
+
         //TODO: re-initialize receiverPort,receiverIpAddress and myUsername from safe args and local store
+
         //render messages
         recyclerView.adapter= context?.let { MessageAdapter(it, messages) }
+
+        view.findViewById<ImageButton>(R.id.button_chatbox_send).setOnClickListener {
+            if(!senderTextBox.text.isBlank())
+            {
+                val msg = Message(senderTextBox.text.toString(), 0, Calendar.getInstance().time)
+                //TODO: msg sending logic
+                messages.add(msg)
+                recyclerView.adapter?.notifyItemInserted(messages.size - 1)
+                recyclerView.scrollToPosition(messages.size-1)
+                senderTextBox.text.clear()
+            }
+        }
+
         return view
     }
 
@@ -53,6 +72,7 @@ class ChatFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         var receiverUserName : String? = ""
+
         try {
             val serverSocket : ServerSocket = ServerSocket(myPort)
             serverSocket.reuseAddress = true
@@ -75,7 +95,8 @@ class ChatFragment() : Fragment() {
                         val text = viewModel.receiveMessage(connectSocket)
                         val msg : Message = Message(text, 1, Calendar.getInstance().time)
                         messages.add(msg)
-                        recyclerView.adapter?.notifyDataSetChanged()
+                        recyclerView.adapter?.notifyItemInserted(messages.size - 1)
+                        recyclerView.scrollToPosition(messages.size-1)
                     }
                 }
             }
