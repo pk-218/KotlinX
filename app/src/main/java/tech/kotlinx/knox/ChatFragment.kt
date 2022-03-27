@@ -1,12 +1,14 @@
 package tech.kotlinx.knox
 
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -79,6 +81,9 @@ class ChatFragment : Fragment() {
                     args.receiverPort
                 )
                 binding.edittextChatbox.text.clear()
+                val imm =
+                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
             }
         }
 
@@ -94,16 +99,16 @@ class ChatFragment : Fragment() {
             startActivityForResult(Intent.createChooser(intent, "Select a file"), 111)
         }
     }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        viewModel.sendMessage("Offline", args.receiverIP, args.receiverPort)
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        viewModel.sendMessage("Online", args.receiverIP, args.receiverPort)
-//    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.sendMessage("Offline", args.receiverIP, args.receiverPort)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.sendMessage("Online", args.receiverIP, args.receiverPort)
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
