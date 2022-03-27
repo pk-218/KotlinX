@@ -40,5 +40,8 @@
         android:name="receiverPort"
         android:defaultValue="5000"
         app:argType="integer" />
+        <action
+            android:id="@+id/action_ChatFragment_to_ConnectionDetailsFragment"
+            app:destination="@id/ConnectionDetailsFragment" />
     </fragment>
 </navigation>

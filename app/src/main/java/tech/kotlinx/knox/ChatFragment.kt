@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.loader.content.CursorLoader
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import tech.kotlinx.knox.adapter.MessageAdapter
@@ -46,6 +47,14 @@ class ChatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //NewConnection Navigation
+        binding.newConnection.setOnClickListener(){
+            findNavController().navigate(
+                R.id.action_ChatFragment_to_ConnectionDetailsFragment,
+            )
+        }
+
 
         // get receiver IP address and port from args
         Log.d("ChatFragmentArgs", args.receiverIP + ":" + args.receiverPort.toString())
