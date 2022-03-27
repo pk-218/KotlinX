@@ -110,7 +110,7 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
                 Log.d(TAG, file.name)
                 if (path.isEmpty()) {
                     Log.d(TAG, "File is Empty!")
-//                    this.coroutineContext.cancel() //Not sure about cancellation corountines
+//                    this.coroutineContext.cancel() //Not sure about cancellation coroutines
                 }
                 Log.d(TAG, "doInBackground: $path")
 
