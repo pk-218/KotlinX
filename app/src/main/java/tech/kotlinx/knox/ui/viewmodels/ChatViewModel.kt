@@ -37,14 +37,16 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
                 val outToServer = clientSocket.getOutputStream()
                 val output = PrintWriter(outToServer)
                 output.println(msg)
-                _messages.value?.add(
-                    Message(
-                        receiverIpAddress!!,
-                        msg,
-                        0,
-                        Calendar.getInstance().time
+                if(msg!=null && !(msg[0]=='@' || msg== "Offline" || msg== "Online")) {
+                    _messages.value?.add(
+                        Message(
+                            receiverIpAddress!!,
+                            msg,
+                            0,
+                            Calendar.getInstance().time
+                        )
                     )
-                )
+                }
                 Log.v(TAG, "Sent Message")
                 output.flush()
                 clientSocket.close()

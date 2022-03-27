@@ -60,7 +60,7 @@
             android:paddingStart="5dp"
             android:paddingEnd="15dp"
             android:src="@drawable/ic_baseline_play_circle_filled_24"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/send_message_box" />
@@ -72,7 +72,7 @@
             android:paddingStart="5dp"
             android:paddingEnd="15dp"
             android:src="@drawable/ic_baseline_pause_circle_outline_24"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/send_message_box" />
