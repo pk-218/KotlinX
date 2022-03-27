@@ -58,7 +58,7 @@ class ChatFragment : Fragment() {
         }
 
         // start server
-        viewModel.startServer(myPort)
+        viewModel.startServer(myPort, args.senderUserName, args.receiverIP, args.receiverPort)
         binding.buttonChatboxSend.setOnClickListener {
             if (binding.edittextChatbox.text.isNotBlank()) {
                 viewModel.sendMessage(

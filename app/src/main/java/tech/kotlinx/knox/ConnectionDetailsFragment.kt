@@ -57,7 +57,8 @@ class ConnectionDetailsFragment : Fragment() {
         binding.enterChatButton.setOnClickListener {
             val bundle = bundleOf(
                 "receiverIP" to binding.receiverIpAddressText.text.toString(),
-                "receiverPort" to 5000
+                "receiverPort" to 5000,
+                "senderUserName" to args.userName
             )
             findNavController().navigate(
                 R.id.action_ConnectionDetailsFragment_to_ChatFragment,

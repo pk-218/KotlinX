@@ -40,5 +40,9 @@
         android:name="receiverPort"
         android:defaultValue="5000"
         app:argType="integer" />
+        <argument
+        android:name="senderUserName"
+        android:defaultValue="user"
+        app:argType="string" />
     </fragment>
 </navigation>

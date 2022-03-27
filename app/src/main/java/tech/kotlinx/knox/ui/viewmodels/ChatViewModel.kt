@@ -65,6 +65,7 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
                 text = input.readLine()
                 if(receiverUserName.value == "No data") {
                     //get receiver's Username
+                        Log.d(TAG, "RECEIVER'S USERNAME : $receiverUserName")
                     receiverUserName.value = text
                 } else {
                     _messages.value?.add(Message("", text, 1, Calendar.getInstance().time))
@@ -76,10 +77,11 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
         }
     }
 
-    fun startServer(port: Int) {
+    fun startServer(port: Int, userName : String, receiverIpAddress: String?, receiverPort: Int) {
         //TODO: send username
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                sendMessage(userName, receiverIpAddress, receiverPort)
                 val serverSocket: ServerSocket = ServerSocket(port)
                 serverSocket.reuseAddress = true
                 Log.d(TAG, Thread.currentThread().name.toString())
