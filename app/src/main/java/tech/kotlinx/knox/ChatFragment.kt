@@ -60,14 +60,14 @@ class ChatFragment : Fragment() {
             with(binding) {
                 messageView.adapter?.notifyItemInserted(newMessages.size - 1)
                 messageView.scrollToPosition(newMessages.size - 1)
-                binding.edittextChatbox.text.clear()
             }
         }
 
         //start file server
-        viewModel.startFileServer(myPort)     // 1
         // start chat server
         viewModel.startServer(myPort)
+        viewModel.startFileServer(myPort)     // 1
+
         binding.buttonChatboxSend.setOnClickListener {
             if (binding.edittextChatbox.text.isNotBlank()) {
                 viewModel.sendMessage(
