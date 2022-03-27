@@ -15,24 +15,18 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import tech.kotlinx.knox.databinding.FragmentConnectionDetailsBinding
 import java.net.NetworkInterface
 import java.util.*
 
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
-
-//data from here does to ChatFragment
-
+@AndroidEntryPoint
 class ConnectionDetailsFragment : Fragment() {
 
     private var _binding: FragmentConnectionDetailsBinding? = null
     private val args by navArgs<ConnectionDetailsFragmentArgs>()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -47,10 +41,12 @@ class ConnectionDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("FragmentArgs", args.userName)
         Toast.makeText(context, "Welcome ${args.userName}", Toast.LENGTH_SHORT).show()
 
         var userIpAddress: String? = "0.0.0.0"
-        val connectivityManager: ConnectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager: ConnectivityManager =
+            context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         @Suppress("DEPRECATION")
         when (connectivityManager.activeNetworkInfo?.type) {
             ConnectivityManager.TYPE_WIFI -> userIpAddress = getWifiIpAddress()
@@ -59,9 +55,14 @@ class ConnectionDetailsFragment : Fragment() {
         binding.senderIpAddressField.setText(userIpAddress)
 
         binding.enterChatButton.setOnClickListener {
-            val bundle = bundleOf("receiverIP" to binding.receiverIpAddressText.text.toString(),
-                "receiverPort" to 5000)
-            findNavController().navigate(R.id.action_ConnectionDetailsFragment_to_ChatFragment, bundle)
+            val bundle = bundleOf(
+                "receiverIP" to binding.receiverIpAddressText.text.toString(),
+                "receiverPort" to 5000
+            )
+            findNavController().navigate(
+                R.id.action_ConnectionDetailsFragment_to_ChatFragment,
+                bundle
+            )
         }
     }
 
@@ -94,7 +95,7 @@ class ConnectionDetailsFragment : Fragment() {
                             if (delimiter < 0)
                                 result.uppercase(Locale.getDefault())
                             else
-                                result.substring(0, delimiter).uppercase(Locale.getDefault());
+                                result.substring(0, delimiter).uppercase(Locale.getDefault())
                         }
                     }
                 }

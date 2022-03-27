@@ -1,6 +1,5 @@
 package tech.kotlinx.knox
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,22 +10,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import tech.kotlinx.knox.adapter.MessageAdapter
-import tech.kotlinx.knox.data.model.Datasource
-import tech.kotlinx.knox.data.model.Message
 import tech.kotlinx.knox.databinding.FragmentChatBinding
 import tech.kotlinx.knox.ui.viewmodels.ChatViewModel
-import java.net.ServerSocket
-import java.net.Socket
-import java.util.Calendar
 
 @AndroidEntryPoint
 class ChatFragment : Fragment() {
 
     private val viewModel: ChatViewModel by viewModels()
     private var myPort = 5000
-    private var messages: ArrayList<Message> = arrayListOf()
     private var myUserName: String? = ""
     private val args by navArgs<ChatFragmentArgs>()
 
@@ -42,66 +34,37 @@ class ChatFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //TODO: re-initialize receiverPort,receiverIpAddress and myUsername from safe args and local store
+        // get receiver IP address and port from args
         Log.d("ChatFragmentArgs", args.receiverIP + ":" + args.receiverPort.toString())
         myUserName = viewModel.userName.value
         Log.d("myUserName", myUserName.toString())
         // render messages
-        messages = Datasource().loadMessages()
         binding.messageView.adapter = context?.let {
-            MessageAdapter(it, messages)
+            MessageAdapter(it, viewModel.messages.value!!)
         }
 
+        viewModel.messages.observe(viewLifecycleOwner) { newMessages ->
+            with(binding) {
+                messageView.adapter?.notifyItemInserted(newMessages.size - 1)
+                messageView.scrollToPosition(newMessages.size - 1)
+                binding.edittextChatbox.text.clear()
+            }
+        }
+
+        // start server
+        viewModel.startServer(myPort)
         binding.buttonChatboxSend.setOnClickListener {
             if (binding.edittextChatbox.text.isNotBlank()) {
-                val msg =
-                    Message(binding.edittextChatbox.text.toString(), 0, Calendar.getInstance().time)
-                //TODO: msg sending logic
-                messages.add(msg)
-                with(binding) {
-                    messageView.adapter?.notifyItemInserted(messages.size - 1)
-                    messageView.scrollToPosition(messages.size - 1)
-                    binding.edittextChatbox.text.clear()
-                }
+                viewModel.sendMessage(
+                    binding.edittextChatbox.text.toString(),
+                    args.receiverIP,
+                    args.receiverPort
+                )
+                binding.edittextChatbox.text.clear()
             }
-        }
-        var receiverUserName: String? = ""
-
-        try {
-            val serverSocket: ServerSocket = ServerSocket(myPort)
-            serverSocket.reuseAddress = true
-
-            //send username to receiver
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.sendMessage(myUserName, args.receiverIP, args.receiverPort)
-            }
-
-            while (!Thread.interrupted()) {
-                val connectSocket: Socket = serverSocket.accept()
-                //get username
-                viewLifecycleOwner.lifecycleScope.launch {
-                    if (receiverUserName == "") {
-                        receiverUserName = viewModel.receiveMessage(connectSocket)
-                        //text view set text
-                        binding.textView.text = receiverUserName
-                    } else {
-                        val text = viewModel.receiveMessage(connectSocket)
-                        val msg: Message = Message(text, 1, Calendar.getInstance().time)
-                        messages.add(msg)
-                        with(binding) {
-                            messageView.adapter?.notifyItemInserted(messages.size - 1)
-                            messageView.scrollToPosition(messages.size - 1)
-                        }
-                    }
-                }
-            }
-            serverSocket.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 

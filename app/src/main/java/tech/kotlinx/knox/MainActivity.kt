@@ -39,11 +39,11 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         //permission calls
-        if (permissionAlreadyGranted()) {
+        if (!permissionAlreadyGranted()) {
+            requestPermission()
             Toast.makeText(this, "Permission is already granted!", Toast.LENGTH_SHORT)
                 .show()
         }
-        requestPermission()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

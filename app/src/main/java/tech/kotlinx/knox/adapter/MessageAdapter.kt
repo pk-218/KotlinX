@@ -68,7 +68,7 @@ class MessageAdapter(
         val textView: TextView = view.findViewById(R.id.send_message_box)
         fun bind(message : Message)
         {
-            val newMessage = message.getMessage()
+            val newMessage = message.message
             textView.text = newMessage
         }
     }
@@ -77,7 +77,7 @@ class MessageAdapter(
         val textView: TextView = view.findViewById(R.id.received_message_box)
         fun bind(message : Message)
         {
-            val newMessage = message.getMessage()
+            val newMessage = message.message
             textView.text = newMessage
         }
     }
