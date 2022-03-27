@@ -1,18 +1,26 @@
 package tech.kotlinx.knox
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import tech.kotlinx.knox.adapter.MessageAdapter
 import tech.kotlinx.knox.databinding.FragmentChatBinding
 import tech.kotlinx.knox.ui.viewmodels.ChatViewModel
+import tech.kotlinx.knox.util.RealPath
+import java.io.File
+
 
 @AndroidEntryPoint
 class ChatFragment : Fragment() {
@@ -24,6 +32,8 @@ class ChatFragment : Fragment() {
 
     private var _binding: FragmentChatBinding? = null
     private val binding get() = _binding!!
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,12 +60,14 @@ class ChatFragment : Fragment() {
             with(binding) {
                 messageView.adapter?.notifyItemInserted(newMessages.size - 1)
                 messageView.scrollToPosition(newMessages.size - 1)
-                binding.edittextChatbox.text.clear()
             }
         }
 
-        // start server
+        //start file server
+        // start chat server
         viewModel.startServer(myPort)
+        viewModel.startFileServer(myPort)     // 1
+
         binding.buttonChatboxSend.setOnClickListener {
             if (binding.edittextChatbox.text.isNotBlank()) {
                 viewModel.sendMessage(
@@ -66,6 +78,74 @@ class ChatFragment : Fragment() {
                 binding.edittextChatbox.text.clear()
             }
         }
+
+
+        //file attachment send
+
+        binding.fileSend.setOnClickListener(){
+            Log.d("filesend", "clicked on file send")
+            val intent = Intent()
+                .setType("*/*")
+                .setAction(Intent.ACTION_GET_CONTENT)
+
+            startActivityForResult(Intent.createChooser(intent, "Select a file"), 111)
+        }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 111 && resultCode == RESULT_OK) {
+            val selectedFile = data?.data //The uri with the location of the file
+            Log.d("URI of Selected File", selectedFile.toString())
+            //get real path from URI
+            val realPath = RealPath()
+            val filePath = realPath.getPathFromUri(context, selectedFile)
+            //send file to receiver
+            if (selectedFile != null) {
+                Log.d("Path of file ",filePath.toString())
+                if (filePath != null) {
+                    viewModel.sendFile(        // 2
+                        filePath,
+                        args.receiverIP,
+                        args.receiverPort
+                    )
+                }
+            }
+
+        }
+    }
+
+
+
+    // Function for displaying an AlertDialogue for choosing an image
+//    private fun selectImage() {
+//        val choice = arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
+//        val myAlertDialog: AlertDialog.Builder = AlertDialog.Builder(this)
+//        myAlertDialog.setTitle("Select Image")
+//        myAlertDialog.setItems(choice, DialogInterface.OnClickListener { dialog, item ->
+//            when {
+//                // Select "Choose from Gallery" to pick image from gallery
+//                choice[item] == "Choose from Gallery" -> {
+//                    val pickFromGallery = Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//                    pickFromGallery.type = "/image"
+//                    startActivityForResult(pickFromGallery, 1)
+//                }
+//                // Select "Take Photo" to take a photo
+//                choice[item] == "Take Photo" -> {
+//                    val cameraPicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//                    startActivityForResult(cameraPicture, 0)
+//                }
+//                // Select "Cancel" to cancel the task
+//                choice[item] == "Cancel" -> {
+//                    myAlertDialog.dismiss()
+//                }
+//            }
+//        })
+//        myAlertDialog.show()
+//    }
+
+
+
 
 }

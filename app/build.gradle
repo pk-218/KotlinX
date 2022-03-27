@@ -54,6 +54,7 @@ dependencies {
 
     // Dagger-Hilt
     implementation "com.google.dagger:hilt-android:2.38.1"
+    implementation 'androidx.room:room-common:2.3.0'
     kapt "com.google.dagger:hilt-compiler:2.38.1"
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -65,4 +66,8 @@ dependencies {
     implementation "androidx.room:room-runtime:2.2.5"
     kapt "androidx.room:room-compiler:2.2.5"
     implementation "androidx.room:room-ktx:2.2.5"
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+
 }
