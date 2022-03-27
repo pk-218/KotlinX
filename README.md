@@ -8,7 +8,7 @@
 
 ## 📌 About
 
-Knox is a peer-to-peer mobile chat application that uses no intermediary, no server, ensuring user's privacy and security. This is made possible by sockets to exchange text and files between peers present in the same network.
+Knox is a peer-to-peer mobile chat application that uses no intermediary, no server, ensuring users' privacy and security. This is made possible by sockets to exchange text and files between peers present in the same network.
 
 _**Developed by Team KotlinX**_
 
@@ -33,7 +33,7 @@ _**Developed by Team KotlinX**_
 
   - Java Development Kit version 8 or higher. Download JDK 11 [here](https://www.oracle.com/in/java/technologies/javase/jdk11-archive-downloads.html).
 
-  - Android Studio Bumblebee or higher installed with Android Gradle Plugin 7.1.4 or higher and Kotlin plguin version 1.5 or higher. Download Android Studio Bumblebee [here](https://developer.android.com/studio).
+  - Android Studio Bumblebee or higher installed with Android Gradle Plugin 7.1.4 or higher and Kotlin plugin version 1.5 or higher. Download Android Studio Bumblebee [here](https://developer.android.com/studio).
 
   - An Android Virtual Device with API level 21 or above to run the mobile application locally or a physical Android device with USB debugging turned on.
 
@@ -73,7 +73,7 @@ Knox follows the single Activity, MVVM (Model-View-ViewModel) architecture. The 
 
 - XML: Extensible Markup Language used to defined the views for the Android mobile application.
 
-- Android Studio: THe official integrated development environment for Google's Android operating system, built on JetBrains' IntelliJ IDEA software and designed specifically for Android development.
+- Android Studio: The official integrated development environment for Google's Android operating system, built on JetBrains' IntelliJ IDEA software and designed specifically for Android development.
 
 - Jetpack Libraries:
   A suite of libraries maintained by Google that work consistently across Android versions and devices.
@@ -98,7 +98,7 @@ Knox follows the single Activity, MVVM (Model-View-ViewModel) architecture. The 
 
 ## 📸 Screenshots & Video
 
-Check out the demonstration video [here](https://drive.google.com/file/d/1-oxsrs8NbKyoVPGcngqP7tlPwLVyYqZ1/view?usp=sharing).
+Check out the demonstration video [here](https://drive.google.com/file/d/1-oxsrs8NbKyoVPGcngqP7tlPwLVyYqZ1/view?usp=sharing). You can download the APK [here](https://github.com/pk-218/KotlinX/releases/download/v1.0.0/app-debug.apk).
 </br>
 
 <p align="center">
