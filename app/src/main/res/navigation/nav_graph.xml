@@ -10,19 +10,42 @@
         android:name="tech.kotlinx.knox.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
-
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_FirstFragment_to_ConnectionDetailsFragment"
+            app:destination="@id/ConnectionDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/ConnectionDetailsFragment"
         android:name="tech.kotlinx.knox.ConnectionDetailsFragment"
         android:label="@string/connection_details_fragment_label"
         tools:layout="@layout/fragment_connection_details">
-
+        <argument
+            android:name="userName"
+            android:defaultValue="User"
+            app:argType="string" />
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_ConnectionDetailsFragment_to_ChatFragment"
+            app:destination="@id/ChatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ChatFragment"
+        android:name="tech.kotlinx.knox.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+    <argument
+        android:name="receiverIP"
+        android:defaultValue="0.0.0.0"
+        app:argType="string" />
+    <argument
+        android:name="receiverPort"
+        android:defaultValue="5000"
+        app:argType="integer" />
+        <action
+            android:id="@+id/action_ChatFragment_to_ConnectionDetailsFragment"
+            app:destination="@id/ConnectionDetailsFragment" />
+        <argument
+        android:name="senderUserName"
+        android:defaultValue="user"
+        app:argType="string" />
     </fragment>
 </navigation>
