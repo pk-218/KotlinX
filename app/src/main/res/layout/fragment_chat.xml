@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
-            android:gravity="center"
+            android:gravity="left"
             android:orientation="vertical">
 
             <TextView
@@ -59,7 +59,7 @@
             <TextView
 
                     android:id="@+id/status"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Online"
@@ -82,13 +82,14 @@
 
         <ImageButton
             android:id="@+id/endChat"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@null"
-            android:src="@drawable/ic_close_chat_icon"
-            android:padding="5dp"
+            android:src="@drawable/ic_noun_delete_message_787592"
             android:layout_marginRight="20dp"
-            android:layout_gravity="right"/>
+            android:layout_marginTop="5dp"
+            android:layout_gravity="right"
+            app:tint="#A60000" />
 
 <!--        <ImageButton-->
 <!--            android:id="@+id/new_connection"-->
