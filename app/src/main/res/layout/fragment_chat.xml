@@ -82,7 +82,7 @@
                     android:text="Online"
                     android:fontFamily="@font/montaga"
                     android:textColor="#007302"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:gravity="center_vertical"
                     />
 
