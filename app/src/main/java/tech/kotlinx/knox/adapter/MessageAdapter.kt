@@ -93,10 +93,10 @@ class MessageAdapter(
             textView.text = newMessage
             timeText.text=currentDateTimeString
 
-            if (message.message!!.contains("New File Received: ") &&
+            if (message.message!!.contains("New File Sent: ") &&
                 (message.message!!.contains("png") || message.message!!.contains("jpg") || message.message!!.contains("jpeg"))
             ) {
-                val fileName: Array<String> = message.message?.split(":") as Array<String>
+                val fileName: List<String> = message.message?.split(":")!!
                 val stringBuilder = StringBuilder(fileName[1])
                 stringBuilder.deleteCharAt(0)
                 val path = stringBuilder.toString()
@@ -167,7 +167,8 @@ class MessageAdapter(
             if (message.message!!.contains("New File Received: ") &&
                 (message.message!!.contains("png") || message.message!!.contains("jpg") || message.message!!.contains("jpeg"))
             ) {
-                val fileName: Array<String> = message.message?.split(":") as Array<String>
+                textView.visibility = View.INVISIBLE
+                val fileName: List<String> = message.message?.split(":")!!
                 val stringBuilder = StringBuilder(fileName[1])
                 stringBuilder.deleteCharAt(0)
                 val path = stringBuilder.toString()
