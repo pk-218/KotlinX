@@ -2,24 +2,19 @@ package tech.kotlinx.knox
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import tech.kotlinx.knox.adapter.MessageAdapter
 import tech.kotlinx.knox.databinding.FragmentChatBinding
 import tech.kotlinx.knox.ui.viewmodels.ChatViewModel
 import tech.kotlinx.knox.util.RealPath
-import java.io.File
 
 
 @AndroidEntryPoint
@@ -65,7 +60,7 @@ class ChatFragment : Fragment() {
 
         //start file server
         // start chat server
-        viewModel.startServer(myPort)
+        viewModel.startServer(myPort, args.senderUserName, args.receiverIP, args.receiverPort)
         viewModel.startFileServer(myPort)     // 1
 
         binding.buttonChatboxSend.setOnClickListener {
@@ -82,8 +77,8 @@ class ChatFragment : Fragment() {
 
         //file attachment send
 
-        binding.fileSend.setOnClickListener(){
-            Log.d("filesend", "clicked on file send")
+        binding.fileSend.setOnClickListener {
+            Log.d("File send", "clicked on file send")
             val intent = Intent()
                 .setType("*/*")
                 .setAction(Intent.ACTION_GET_CONTENT)

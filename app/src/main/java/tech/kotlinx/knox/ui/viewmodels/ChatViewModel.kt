@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import tech.kotlinx.knox.data.model.Message
 import tech.kotlinx.knox.data.repository.RepositoryImpl
@@ -20,13 +19,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) : ViewModel() {
-    val TAG = "Chat View Model"
+    private val TAG = "Chat View Model"
     private var _messages = MutableLiveData<MutableList<Message>>(
         arrayListOf()
     )
 
-    var receiverUserName : MutableLiveData<String> = MutableLiveData("No data")
-    var message: MutableLiveData<String> = MutableLiveData()
+    private var receiverUserName : MutableLiveData<String> = MutableLiveData("No data")
     val messages: MutableLiveData<MutableList<Message>>
         get() = _messages
 
@@ -35,7 +33,7 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
     fun sendMessage(msg: String?, receiverIpAddress: String?, receiverPort: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val clientSocket: Socket = Socket(receiverIpAddress, receiverPort)
+                val clientSocket = Socket(receiverIpAddress, receiverPort)
                 val outToServer = clientSocket.getOutputStream()
                 val output = PrintWriter(outToServer)
                 output.println(msg)
@@ -60,7 +58,7 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
     //TODO:GET SENDER's IP
     private fun receiveMessage(vararg sockets: Socket) {
         viewModelScope.launch(Dispatchers.IO) {
-            var text: String? = null
+            var text: String?
             try {
                 val input = BufferedReader(InputStreamReader(sockets[0].getInputStream()))
                 text = input.readLine()
@@ -83,7 +81,7 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 sendMessage(userName, receiverIpAddress, receiverPort)
-                val serverSocket: ServerSocket = ServerSocket(port)
+                val serverSocket = ServerSocket(port)
                 serverSocket.reuseAddress = true
                 Log.d(TAG, Thread.currentThread().name.toString())
                 while (!Thread.interrupted()) {
@@ -100,10 +98,10 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
 
     fun sendFile(filePath: String, receiverIpAddress : String, receiverPort : Int) {
         var path = filePath
-        var filenameX = ""
+        var filenameX : String?
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val clientSocket: Socket = Socket(receiverIpAddress, receiverPort+1)
+                val clientSocket = Socket(receiverIpAddress, receiverPort+1)
                 if (path[0] != '/') {
                     path = "/storage/emulated/0/$path"
                 }
@@ -139,7 +137,9 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
                 outputStream.flush()
 
                 Log.d(TAG, "Sent File")
-                messages.value!!.add(Message("","New File Sent: " + filenameX + ":" + path, 0, Calendar.getInstance().getTime())) //adding message on sender's side
+                messages.value!!.add(Message("",
+                    "New File Sent: $filenameX:$path", 0, Calendar.getInstance().time
+                )) //adding message on sender's side
                 outputStream.close()
                 dataOutputStream.close()
 
@@ -164,7 +164,7 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
                     text = fileName
                     val outputStream: OutputStream = BufferedOutputStream(FileOutputStream(outputFile))
                     var fileSize = dataInputStream.readLong()
-                    Log.d(TAG, "File name and size = ${fileName.toString()} and ${fileSize.toString()}")
+                    Log.d(TAG, "File name and size = $fileName and $fileSize")
                     var bytesRead: Int
                     val byteArray = ByteArray(8192 * 16)
                     while (fileSize > 0) {
@@ -189,7 +189,7 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
                 e.printStackTrace()
             }
 
-            _messages.value!!.add(Message("", "New File Received: " + text , 1, Calendar.getInstance().time))
+            _messages.value!!.add(Message("", "New File Received: $text", 1, Calendar.getInstance().time))
             text
         }
         return job.await()
