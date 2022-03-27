@@ -3,17 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/drawable/attachment_send_shape.xml" value="0.2225" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/drawable/background.xml" value="0.2435" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/drawable/enter_message_shape.xml" value="0.2435" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/drawable/file_send_shape.xml" value="0.2435" />
+        <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/drawable/ic_baseline_arrow_left_24.xml" value="0.168" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/drawable/ic_baseline_attach_file_24.xml" value="0.2225" />
+        <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2225" />
+        <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.2225" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/drawable/round_border.xml" value="0.2435" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/drawable/rounded_rectangle_green.xml" value="0.2225" />
+        <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/drawable/rounded_rectangle_orange.xml" value="0.2225" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/content_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/fragment_blank.xml" value="0.23854166666666668" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/fragment_chat.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/fragment_chat_box.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/fragment_connection_details.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/fragment_first.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/fragment_second.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/message_box.xml" value="0.25416666666666665" />
@@ -25,7 +31,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
