@@ -23,6 +23,8 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
     private var _messages = MutableLiveData<MutableList<Message>>(
         arrayListOf()
     )
+
+    var receiverUserName : MutableLiveData<String> = MutableLiveData("No data")
     var message: MutableLiveData<String> = MutableLiveData()
     val messages: MutableLiveData<MutableList<Message>>
         get() = _messages
@@ -61,7 +63,12 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
             try {
                 val input = BufferedReader(InputStreamReader(sockets[0].getInputStream()))
                 text = input.readLine()
-                _messages.value?.add(Message("", text, 1, Calendar.getInstance().time))
+                if(receiverUserName.value == "No data") {
+                    //get receiver's Username
+                    receiverUserName.value = text
+                } else {
+                    _messages.value?.add(Message("", text, 1, Calendar.getInstance().time))
+                }
                 Log.i(TAG, "Received => $text")
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
@@ -70,6 +77,7 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
     }
 
     fun startServer(port: Int) {
+        //TODO: send username
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val serverSocket: ServerSocket = ServerSocket(port)

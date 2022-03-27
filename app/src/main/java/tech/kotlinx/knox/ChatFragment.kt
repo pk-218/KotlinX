@@ -45,6 +45,10 @@ class ChatFragment : Fragment() {
             MessageAdapter(it, viewModel.messages.value!!)
         }
 
+        viewModel.receiverUserName.observe(viewLifecycleOwner) { username ->
+            binding.textView.text = username
+        }
+
         viewModel.messages.observe(viewLifecycleOwner) { newMessages ->
             with(binding) {
                 messageView.adapter?.notifyItemInserted(newMessages.size - 1)
