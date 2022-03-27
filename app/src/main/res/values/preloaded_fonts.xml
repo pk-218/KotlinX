@@ -3,6 +3,7 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/lobster_two_italic</item>
         <item>@font/montaga</item>
+        <item>@font/play</item>
         <item>@font/roboto_mono</item>
         <item>@font/roboto_slab</item>
         <item>@font/roboto_slab_thin</item>

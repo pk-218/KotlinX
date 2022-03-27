@@ -6,6 +6,7 @@ buildscript {
     dependencies {
         def nav_version = "2.4.1"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
     }
 }
 
@@ -18,3 +19,9 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    nav_version = "2.3.1"
+    room_version = '2.3.0'
+}
+
