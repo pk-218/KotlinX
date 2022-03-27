@@ -25,6 +25,9 @@
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/message_box.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/received_message_box.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iamsh/AndroidStudioProjects/knox/app/src/main/res/layout/sent_message_box.xml" value="0.25416666666666665" />
+        <entry key="app/src/main/res/layout/fragment_connection_details.xml" value="0.3134057971014493" />
+        <entry key="app/src/main/res/layout/received_message_box.xml" value="0.3265625" />
+        <entry key="app/src/main/res/layout/sent_message_box.xml" value="0.3134057971014493" />
       </map>
     </option>
   </component>

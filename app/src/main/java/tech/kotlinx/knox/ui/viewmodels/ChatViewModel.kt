@@ -178,6 +178,8 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+
+            _messages.value!!.add(Message("", "New File Received: " + text , 1, Calendar.getInstance().time))
             text
         }
         return job.await()
