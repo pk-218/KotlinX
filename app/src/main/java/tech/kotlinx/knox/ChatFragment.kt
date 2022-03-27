@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import tech.kotlinx.knox.adapter.MessageAdapter
 import tech.kotlinx.knox.databinding.FragmentChatBinding
 import tech.kotlinx.knox.ui.viewmodels.ChatViewModel
+import tech.kotlinx.knox.util.RealPath
 import java.io.File
 
 
@@ -63,7 +64,9 @@ class ChatFragment : Fragment() {
             }
         }
 
-        // start server
+        //start file server
+        viewModel.startFileServer(myPort)     // 1
+        // start chat server
         viewModel.startServer(myPort)
         binding.buttonChatboxSend.setOnClickListener {
             if (binding.edittextChatbox.text.isNotBlank()) {
@@ -95,13 +98,20 @@ class ChatFragment : Fragment() {
         if (requestCode == 111 && resultCode == RESULT_OK) {
             val selectedFile = data?.data //The uri with the location of the file
             Log.d("URI of Selected File", selectedFile.toString())
+            //get real path from URI
+            val realPath = RealPath()
+            val filePath = realPath.getPathFromUri(context, selectedFile)
+            //send file to receiver
             if (selectedFile != null) {
-                selectedFile.getPath()
-                Log.d("Path of file ",selectedFile.getPath().toString())
+                Log.d("Path of file ",filePath.toString())
+                if (filePath != null) {
+                    viewModel.sendFile(        // 2
+                        filePath,
+                        args.receiverIP,
+                        args.receiverPort
+                    )
+                }
             }
-
-
-
 
         }
     }
