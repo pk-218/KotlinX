@@ -5,11 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".ChatFragment"
-    android:background="@drawable/background"
-    >
+    tools:context=".ChatFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -20,109 +19,65 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-
-
-        <ImageView
-            android:id="@+id/profile"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_baseline_person_24"
-            app:tint="#80000000" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:gravity="left"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/name"
+            <ImageView
+                android:id="@+id/profile"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montaga"
-                android:text="Anonymous User"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@string/default_user_profile_image"
+                android:src="@drawable/ic_baseline_person_24"
+                app:tint="#80000000" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:gravity="left"
+                android:orientation="vertical">
 
-
-            <TextView
-
-                    android:id="@+id/status"
+                <TextView
+                    android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Online"
                     android:fontFamily="@font/montaga"
-                    android:textColor="#007302"
+                    android:text="@string/user_name_text"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montaga"
                     android:gravity="center_vertical"
-                    />
+                    android:text="@string/user_default_status"
+                    android:textColor="#007302" />
 
-
-
-
-        </LinearLayout>
-
-
-
-
-
-
+            </LinearLayout>
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/endChat"
+            android:id="@+id/end_chat"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@null"
-            android:src="@drawable/ic_noun_delete_message_787592"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="5dp"
             android:layout_gravity="right"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:background="@null"
+            android:contentDescription="@string/end_chat_button_text"
+            android:src="@drawable/ic_noun_delete_message_787592"
             app:tint="#A60000" />
 
-<!--        <ImageButton-->
-<!--            android:id="@+id/new_connection"-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:src="@drawable/outline_person_add_alt_1_black_24dp"-->
-<!--            android:background="@null"-->
-<!--            android:layout_gravity="right"-->
-<!--            android:layout_marginHorizontal="10dp"-->
-<!--            android:padding="5dp"-->
-<!--            app:tint="@color/blue"-->
-<!--            />-->
-
-
-
-
-
-
     </androidx.appcompat.widget.Toolbar>
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center"-->
-<!--        android:text="@string/status"-->
-<!--        android:textColor="@color/colorAccent"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/layout_chatbox"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/toolbar"-->
-<!--        app:layout_constraintVertical_bias="0.005" />-->
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/message_view"
@@ -158,21 +113,22 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:padding="5dp"
             android:backgroundTint="#AEAEAE"
+            android:contentDescription="@string/send_file_button_text"
+            android:padding="5dp"
             android:src="@drawable/ic_baseline_attach_file_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/layout_entermessage"
+            app:layout_constraintEnd_toStartOf="@id/layout_enter_message"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_entermessage"
+            android:id="@+id/layout_enter_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/enter_message_shape"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/button_chatbox_send"
             app:layout_constraintStart_toEndOf="@id/file_send"
@@ -187,6 +143,7 @@
                 android:background="@drawable/enter_message_shape"
                 android:gravity="center_vertical"
                 android:hint="@string/enter_message"
+                android:inputType="text"
                 android:maxLines="6"
                 android:padding="7dp"
                 android:textColorHint="@color/blue_50opacity"
@@ -195,8 +152,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageButton
@@ -204,10 +159,11 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:background="@drawable/attachment_send_shape"
             android:clickable="true"
+            android:contentDescription="@string/send_message_button_text"
             android:focusable="true"
-            android:layout_margin="10dp"
             android:src="@drawable/ic_baseline_send_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

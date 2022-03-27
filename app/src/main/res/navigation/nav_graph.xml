@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="tech.kotlinx.knox.FirstFragment"
+        android:name="tech.kotlinx.knox.HomeFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
         <action
@@ -31,21 +31,21 @@
         android:id="@+id/ChatFragment"
         android:name="tech.kotlinx.knox.ChatFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" >
-    <argument
-        android:name="receiverIP"
-        android:defaultValue="0.0.0.0"
-        app:argType="string" />
-    <argument
-        android:name="receiverPort"
-        android:defaultValue="5000"
-        app:argType="integer" />
+        tools:layout="@layout/fragment_chat">
+        <argument
+            android:name="receiverIP"
+            android:defaultValue="0.0.0.0"
+            app:argType="string" />
+        <argument
+            android:name="receiverPort"
+            android:defaultValue="5000"
+            app:argType="integer" />
         <action
             android:id="@+id/action_ChatFragment_to_ConnectionDetailsFragment"
             app:destination="@id/ConnectionDetailsFragment" />
         <argument
-        android:name="senderUserName"
-        android:defaultValue="user"
-        app:argType="string" />
+            android:name="senderUserName"
+            android:defaultValue="user"
+            app:argType="string" />
     </fragment>
 </navigation>

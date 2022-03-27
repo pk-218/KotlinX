@@ -24,7 +24,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private val REQUEST_CODE = 200
+
+    companion object {
+        private const val REQUEST_CODE = 200
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        //permission calls
+        // permission calls
         if (!permissionAlreadyGranted()) {
             requestPermission()
             Toast.makeText(this, "Permission is already granted!", Toast.LENGTH_SHORT)
@@ -48,15 +51,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    //permission request based on shared preferences data
+    // permission request based on shared preferences data
     private fun permissionAlreadyGranted(): Boolean {
         val result = ContextCompat.checkSelfPermission(this, permission.WRITE_EXTERNAL_STORAGE)
         return result == PackageManager.PERMISSION_GRANTED
@@ -98,9 +97,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Permission is denied!", Toast.LENGTH_SHORT).show()
                 val showRationale =
                     shouldShowRequestPermissionRationale(permission.WRITE_EXTERNAL_STORAGE)
-                if (!showRationale) {
-//                    openSettingsDialog()
-                }
+                if (showRationale) return
             }
         }
     }

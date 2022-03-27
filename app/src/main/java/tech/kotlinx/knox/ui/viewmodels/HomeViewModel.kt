@@ -9,7 +9,7 @@ import tech.kotlinx.knox.data.repository.RepositoryImpl
 import javax.inject.Inject
 
 @HiltViewModel
-class FirstViewModel @Inject constructor(private val repository: RepositoryImpl): ViewModel() {
+class HomeViewModel @Inject constructor(private val repository: RepositoryImpl) : ViewModel() {
 
     var userName: MutableLiveData<String> = MutableLiveData()
     fun saveUserName(name: String) {

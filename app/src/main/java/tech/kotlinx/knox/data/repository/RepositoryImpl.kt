@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.map
 
 const val USER_PREFERENCES_NAME = "user_preferences"
 
-val Context.datastore : DataStore<Preferences> by  preferencesDataStore(name = USER_PREFERENCES_NAME)
+val Context.datastore: DataStore<Preferences> by preferencesDataStore(name = USER_PREFERENCES_NAME)
 
-class RepositoryImpl(private val context: Context): Repository {
+class RepositoryImpl(private val context: Context) : Repository {
 
     companion object {
         val USER_NAME = stringPreferencesKey("NAME")
