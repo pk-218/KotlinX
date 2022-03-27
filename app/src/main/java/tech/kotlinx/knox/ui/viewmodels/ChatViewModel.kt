@@ -24,11 +24,11 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
         arrayListOf()
     )
 
-    private var receiverUserName : MutableLiveData<String> = MutableLiveData("No data")
     val messages: MutableLiveData<MutableList<Message>>
         get() = _messages
 
     var userName: MutableLiveData<String> = MutableLiveData()
+    var status : MutableLiveData<String> = MutableLiveData()
 
     fun sendMessage(msg: String?, receiverIpAddress: String?, receiverPort: Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -62,25 +62,25 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
             try {
                 val input = BufferedReader(InputStreamReader(sockets[0].getInputStream()))
                 text = input.readLine()
-                if(receiverUserName.value == "No data") {
-                    //get receiver's Username
-                        Log.d(TAG, "RECEIVER'S USERNAME : $receiverUserName")
-                    receiverUserName.value = text
+                if(text == "Offline" || text == "Online") {
+                    status.postValue(text)
+                }
+                else if(text[0]=='@') {
+                    userName.postValue(text.subSequence(1, text.length).toString())
                 } else {
                     _messages.value?.add(Message("", text, 1, Calendar.getInstance().time))
+                    Log.i(TAG, "Received => $text")
                 }
-                Log.i(TAG, "Received => $text")
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
             }
         }
     }
 
-    fun startServer(port: Int, userName : String, receiverIpAddress: String?, receiverPort: Int) {
+    fun startServer(port: Int) {
         //TODO: send username
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                sendMessage(userName, receiverIpAddress, receiverPort)
                 val serverSocket = ServerSocket(port)
                 serverSocket.reuseAddress = true
                 Log.d(TAG, Thread.currentThread().name.toString())

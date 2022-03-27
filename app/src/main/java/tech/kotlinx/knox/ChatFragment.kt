@@ -28,8 +28,6 @@ class ChatFragment : Fragment() {
     private var _binding: FragmentChatBinding? = null
     private val binding get() = _binding!!
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,14 +41,21 @@ class ChatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // get receiver IP address and port from args
-        Log.d("ChatFragmentArgs", args.receiverIP + ":" + args.receiverPort.toString())
-        myUserName = viewModel.userName.value
-        Log.d("myUserName", myUserName.toString())
+        Log.d("ChatFragmentArgs", args.senderUserName + args.receiverIP + ":" + args.receiverPort.toString())
+
         // render messages
         binding.messageView.adapter = context?.let {
             MessageAdapter(it, viewModel.messages.value!!)
         }
 
+        viewModel.userName.observe(viewLifecycleOwner) {username ->
+            binding.name.text = username
+        }
+
+        viewModel.status.observe(viewLifecycleOwner) {status ->
+            binding.status.text = status
+        }
+        val a = "@" + args.senderUserName
         viewModel.messages.observe(viewLifecycleOwner) { newMessages ->
             with(binding) {
                 messageView.adapter?.notifyItemInserted(newMessages.size - 1)
@@ -58,9 +63,12 @@ class ChatFragment : Fragment() {
             }
         }
 
-        //start file server
         // start chat server
-        viewModel.startServer(myPort, args.senderUserName, args.receiverIP, args.receiverPort)
+        viewModel.startServer(myPort)
+
+        viewModel.sendMessage(a, args.receiverIP, args.receiverPort)
+
+        //start file server
         viewModel.startFileServer(myPort)     // 1
 
         binding.buttonChatboxSend.setOnClickListener {
@@ -86,6 +94,16 @@ class ChatFragment : Fragment() {
             startActivityForResult(Intent.createChooser(intent, "Select a file"), 111)
         }
     }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        viewModel.sendMessage("Offline", args.receiverIP, args.receiverPort)
+//    }
+//
+//    override fun onResume() {
+//        super.onResume()
+//        viewModel.sendMessage("Online", args.receiverIP, args.receiverPort)
+//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
