@@ -3,6 +3,7 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -172,6 +173,7 @@ class MessageAdapter(
                 val path = stringBuilder.toString()
                 val directory: String = Environment.getExternalStorageDirectory().toString() + "/Download/" + path
                 val imgFile = File(directory)
+                Log.d("ADAPTER", "${imgFile.totalSpace}")
                 if (imgFile.exists()) {
                     Glide.with(context)
                         .load(directory)
