@@ -129,7 +129,7 @@ class ChatViewModel @Inject constructor(private val repository: RepositoryImpl) 
                 outputStream.flush()
 
                 Log.d(TAG, "Sent File")
-                messages.value!!.add(Message("","New File Sent: " + filenameX + ":" + path, 0, Calendar.getInstance().getTime()))
+                messages.value!!.add(Message("","New File Sent: " + filenameX + ":" + path, 0, Calendar.getInstance().getTime())) //adding message on sender's side
                 outputStream.close()
                 dataOutputStream.close()
 

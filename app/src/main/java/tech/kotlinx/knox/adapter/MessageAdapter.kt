@@ -96,6 +96,7 @@ class MessageAdapter(
             if (message.message!!.contains("New File Sent: ") &&
                 (message.message!!.contains("png") || message.message!!.contains("jpg") || message.message!!.contains("jpeg"))
             ) {
+                textView.text = ""
                 val fileName: List<String> = message.message?.split(":")!!
                 val stringBuilder = StringBuilder(fileName[1])
                 stringBuilder.deleteCharAt(0)
