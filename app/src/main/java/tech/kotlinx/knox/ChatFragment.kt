@@ -7,9 +7,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.loader.content.CursorLoader
@@ -41,6 +40,7 @@ class ChatFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        setHasOptionsMenu(true)
         _binding = FragmentChatBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -48,12 +48,15 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //NewConnection Navigation
-        binding.newConnection.setOnClickListener(){
+        //End Chat
+        binding.endChat.setOnClickListener(){
+            Toast.makeText(context, "Chat Ended", Toast.LENGTH_SHORT).show()
             findNavController().navigate(
                 R.id.action_ChatFragment_to_ConnectionDetailsFragment,
             )
         }
+
+
 
 
         // get receiver IP address and port from args
@@ -124,6 +127,9 @@ class ChatFragment : Fragment() {
 
         }
     }
+
+
+
 
 
 
